@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Syed Ali Faraz | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -22,22 +27,66 @@
     .animate-fade-in-up {
       animation: fadeInUp 1s ease-out forwards;
     }
+    .modal-backdrop {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .modal-content {
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    @keyframes modalFadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .blog-blur {
+      filter: blur(5px);
+      transition: filter 0.3s ease;
+    }
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .scroll-animate.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link.active {
+      color: #fcd34d;
+    }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #fcd34d;
+      border-radius: 2px;
+    }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
   <!-- Navbar -->
-  <nav class="fixed w-full bg-gradient-to-r from-indigo-600 to-purple-600 shadow-md z-50 text-white">
+  <nav class="fixed w-full bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-gray-800 dark:to-gray-900 shadow-md z-50 text-white transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <h1 class="text-3xl font-extrabold text-yellow-400">Syed Ali Faraz</h1>
       
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center space-x-6 text-lg font-medium">
-        <a href="#about" class="hover:text-black">About</a>
-        <a href="#skills" class="hover:text-black">Skills</a>
-        <a href="#projects" class="hover:text-black">Projects</a>
-        <a href="#blog" class="hover:text-black">Blogs</a>
-        <a href="#contact" class="hover:text-black">Contact</a>
+        <a href="#about" class="nav-link hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">About</a>
+        <a href="#skills" class="nav-link hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Skills</a>
+        <a href="#projects" class="nav-link hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Projects</a>
+        <a href="#blog" class="nav-link hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Blogs</a>
+        <a href="#contact" class="nav-link hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Contact</a>
+        <button id="theme-toggle" class="ml-4 p-2 rounded-full hover:bg-white/20 transition-colors" aria-label="Toggle dark mode">
+          <i id="theme-icon" class="fas fa-moon text-xl"></i>
+        </button>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -48,97 +97,106 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden hidden px-6 pb-4 space-y-2">
-      <a href="#about" class="block py-2 hover:text-black">About</a>
-      <a href="#skills" class="block py-2 hover:text-black">Skills</a>
-      <a href="#projects" class="block py-2 hover:text-black">Projects</a>
-      <a href="#blog" class="block py-2 hover:text-black">Blogs</a>
-      <a href="#contact" class="block py-2 hover:text-black">Contact</a>
+      <a href="#about" class="nav-link block py-2 hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">About</a>
+      <a href="#skills" class="nav-link block py-2 hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Skills</a>
+      <a href="#projects" class="nav-link block py-2 hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Projects</a>
+      <a href="#blog" class="nav-link block py-2 hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Blogs</a>
+      <a href="#contact" class="nav-link block py-2 hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors">Contact</a>
+      <button id="theme-toggle-mobile" class="block py-2 hover:text-yellow-300 dark:hover:text-yellow-300 transition-colors" aria-label="Toggle dark mode">
+        <i id="theme-icon-mobile" class="fas fa-moon mr-2"></i>Toggle Theme
+      </button>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 pt-28">
-    <img src="pfp.jpg" alt="Profile" class="w-36 h-36 md:w-44 md:h-44 rounded-full shadow-lg object-cover mb-6 animate-fade-in-up" />
-    <h2 class="text-4xl md:text-6xl font-extrabold animate-fade-in-up">Hi, I'm <span class="text-yellow-300">Syed Ali Faraz</span></h2>
-    <p class="text-lg md:text-2xl mt-4 animate-fade-in-up">A Passionate Full Stack Developer</p>
-    <a href="#projects" class="mt-6 bg-yellow-400 text-gray-900 px-8 py-3 rounded-full text-lg font-bold hover:bg-yellow-500 transition animate-fade-in-up">View My Work</a>
+  <section class="min-h-screen flex flex-col justify-center items-center text-center bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-gray-800 dark:to-gray-900 text-white px-4 pt-28 transition-colors duration-300">
+    <img src="pfp.jpg" alt="Profile" class="w-36 h-36 md:w-44 md:h-44 rounded-full shadow-lg object-cover mb-6 scroll-animate" />
+    <h2 class="text-4xl md:text-6xl font-extrabold scroll-animate">Hi, I'm <span class="text-yellow-300">Syed Ali Faraz</span></h2>
+    <p class="text-lg md:text-2xl mt-4 scroll-animate">A Passionate Full Stack Developer</p>
+    <a href="#projects" class="mt-6 bg-yellow-400 text-gray-900 px-8 py-3 rounded-full text-lg font-bold hover:bg-yellow-500 transition scroll-animate">View My Work</a>
   </section>
 
   <!-- About -->
-  <section id="about" class="max-w-5xl mx-auto py-24 px-6 text-center">
-    <h2 class="text-4xl md:text-5xl font-bold text-indigo-600 animate-fade-in-up">About Me</h2>
-    <p class="text-lg md:text-xl mt-6 text-gray-700 leading-relaxed animate-fade-in-up">
+  <section id="about" class="max-w-5xl mx-auto py-24 px-6 text-center scroll-animate">
+    <h2 class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">About Me</h2>
+    <p class="text-lg md:text-xl mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">
         I’m a Full Stack Developer with expertise in the MERN stack (MongoDB, Express.js, React, Node.js) and strong experience with TypeScript, PostgreSQL, and Python. I build scalable, high-performance web applications using modern tools like Redux for state management, JWT for secure authentication, and REST APIs for smooth backend integration. I design responsive and visually engaging interfaces with Tailwind CSS and focus on delivering efficient, user-friendly solutions that perform reliably at scale.
     </p>
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="max-w-6xl mx-auto py-24 px-6 text-center">
-    <h2 class="text-4xl md:text-5xl font-bold text-indigo-600 animate-fade-in-up">Skills</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-10 animate-fade-in-up">
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">C/C++</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">HTML</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">CSS</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">JavaScript</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">TypeScript</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">Python</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">Tailwind CSS</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">Responsive CSS</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">Bootstrap</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">React</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">Node.js</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">Express.js</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">MongoDB</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">PostgreSQL</span>
-      <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full font-semibold">Git</span>
+  <section id="skills" class="max-w-6xl mx-auto py-24 px-6 text-center scroll-animate">
+    <h2 class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">Skills</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-10">
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">C/C++</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">HTML</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">CSS</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">JavaScript</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">TypeScript</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">Python</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">Tailwind CSS</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">Responsive CSS</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">Bootstrap</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">React</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">Node.js</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">Express.js</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">MongoDB</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">PostgreSQL</span>
+      <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-4 py-2 rounded-full font-semibold">Git</span>
     </div>
   </section>
 
     <!-- Projects -->
-    <section id="projects" class="py-24 bg-gray-100">
+    <section id="projects" class="py-24 bg-gray-100 dark:bg-gray-800 scroll-animate">
         <div class="max-w-7xl mx-auto px-6">
-          <h2 class="text-4xl md:text-5xl font-extrabold text-center text-indigo-600 mb-16 animate-fade-in-up">My Projects</h2>
+          <h2 class="text-4xl md:text-5xl font-extrabold text-center text-indigo-600 dark:text-indigo-400 mb-16">My Projects</h2>
           <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-            <div class="group relative overflow-hidden rounded-3xl shadow-xl bg-white hover:scale-105 transition-transform duration-500">
+            <div class="project-card group relative overflow-hidden rounded-3xl shadow-xl bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-500 cursor-pointer scroll-animate" data-project="1">
               <img src="mega-blog.jpg" alt="Mega Blog" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex flex-col justify-end">
                 <h3 class="text-white text-2xl font-semibold mb-2">Mega Blog</h3>
                 <p class="text-white opacity-80">A dynamic blog app where users post and interact in real time.</p>
+                <p class="text-sm text-yellow-300 mt-2 font-medium">Click to view details →</p>
               </div>
             </div>
-            <div class="group relative overflow-hidden rounded-3xl shadow-xl bg-white hover:scale-105 transition-transform duration-500">
+            <div class="project-card group relative overflow-hidden rounded-3xl shadow-xl bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-500 cursor-pointer scroll-animate" data-project="2">
               <img src="currency.png" alt="Currency Exchanger" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex flex-col justify-end">
                 <h3 class="text-white text-2xl font-semibold mb-2">Currency Exchanger</h3>
                 <p class="text-white opacity-80">Currency converter with real-time backend processing.</p>
+                <p class="text-sm text-yellow-300 mt-2 font-medium">Click to view details →</p>
               </div>
             </div>
-            <div class="group relative overflow-hidden rounded-3xl shadow-xl bg-white hover:scale-105 transition-transform duration-500">
+            <div class="project-card group relative overflow-hidden rounded-3xl shadow-xl bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-500 cursor-pointer scroll-animate" data-project="3">
               <img src="cms-gu.jpg" alt="University CMS" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex flex-col justify-end">
                 <h3 class="text-white text-2xl font-semibold mb-2">University CMS</h3>
                 <p class="text-white opacity-80">A CMS for managing academic operations at Gomal University.</p>
+                <p class="text-sm text-yellow-300 mt-2 font-medium">Click to view details →</p>
               </div>
             </div>
-            <div class="group relative overflow-hidden rounded-3xl shadow-xl bg-white hover:scale-105 transition-transform duration-500">
+            <div class="project-card group relative overflow-hidden rounded-3xl shadow-xl bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-500 cursor-pointer scroll-animate" data-project="4">
               <img src="ryvals.png" alt="Ryvals" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex flex-col justify-end">
                 <h3 class="text-white text-2xl font-semibold mb-2">Ryvals</h3>
                 <p class="text-white opacity-80">A web-app for managing tournaments, leagues and lobbies in FPS games.</p>
+                <p class="text-sm text-yellow-300 mt-2 font-medium">Click to view details →</p>
               </div>
             </div>
-            <div class="group relative overflow-hidden rounded-3xl shadow-xl bg-white hover:scale-105 transition-transform duration-500">
+            <div class="project-card group relative overflow-hidden rounded-3xl shadow-xl bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-500 cursor-pointer scroll-animate" data-project="5">
               <img src="sabio.png" alt="Sabio trade" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex flex-col justify-end">
                 <h3 class="text-white text-2xl font-semibold mb-2">Sabio Trade</h3>
                 <p class="text-white opacity-80">A web-app for managing user's trading portfolio and help people grow.</p>
+                <p class="text-sm text-yellow-300 mt-2 font-medium">Click to view details →</p>
               </div>
             </div>
-            <div class="group relative overflow-hidden rounded-3xl shadow-xl bg-white hover:scale-105 transition-transform duration-500">
-              <img src="wellbility.png" alt="University CMS" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-700">
+            <div class="project-card group relative overflow-hidden rounded-3xl shadow-xl bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-500 cursor-pointer scroll-animate" data-project="6">
+              <img src="wellbility.png" alt="Wellbility" class="w-full h-56 object-cover transform group-hover:scale-110 transition duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-6 flex flex-col justify-end">
                 <h3 class="text-white text-2xl font-semibold mb-2">Wellbility</h3>
                 <p class="text-white opacity-80">A web-app for managing pharmaceutical actions.</p>
+                <p class="text-sm text-yellow-300 mt-2 font-medium">Click to view details →</p>
               </div>
             </div>
           </div>
@@ -146,27 +204,112 @@
       </section>
 
   <!-- Blog Section -->
-  <section id="blog" class="py-24 bg-white">
+  <section id="blog" class="py-24 bg-white dark:bg-gray-900 scroll-animate">
     <div class="max-w-5xl mx-auto px-6 text-center">
-      <h2 class="text-4xl md:text-5xl font-bold text-indigo-600 mb-12 animate-fade-in-up">My Blog</h2>
-      <div class="grid gap-8 md:grid-cols-2">
-        <div class="bg-gray-100 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500">
-          <h3 class="text-xl font-semibold mb-2">Why I Chose Full Stack Development</h3>
-          <p class="text-gray-700">Learn why I enjoy working across the stack and how it fuels my passion for learning and building.</p>
+      <h2 class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400 mb-12">My Blog</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="blog-card bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500 cursor-pointer" data-blog="1">
+          <h3 class="text-xl font-semibold mb-2 dark:text-gray-100">Why I Chose Full Stack Development</h3>
+          <p class="text-gray-700 dark:text-gray-300">Learn why I enjoy working across the stack and how it fuels my passion for learning and building.</p>
+          <p class="text-sm text-indigo-600 dark:text-indigo-400 mt-4 font-medium">Read more →</p>
         </div>
-        <div class="bg-gray-100 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500">
-          <h3 class="text-xl font-semibold mb-2">Top 5 JavaScript Tips</h3>
-          <p class="text-gray-700">Here are some game-changing JavaScript techniques every developer should know.</p>
+        <div class="blog-card bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500 cursor-pointer" data-blog="2">
+          <h3 class="text-xl font-semibold mb-2 dark:text-gray-100">Top 5 JavaScript Tips</h3>
+          <p class="text-gray-700 dark:text-gray-300">Here are some game-changing JavaScript techniques every developer should know.</p>
+          <p class="text-sm text-indigo-600 dark:text-indigo-400 mt-4 font-medium">Read more →</p>
+        </div>
+        <div class="blog-card bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500 cursor-pointer" data-blog="3">
+          <h3 class="text-xl font-semibold mb-2 dark:text-gray-100">Building Scalable APIs with Node.js</h3>
+          <p class="text-gray-700 dark:text-gray-300">Discover best practices for creating robust and scalable REST APIs using Express.js and Node.js.</p>
+          <p class="text-sm text-indigo-600 dark:text-indigo-400 mt-4 font-medium">Read more →</p>
+        </div>
+        <div class="blog-card bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500 cursor-pointer" data-blog="4">
+          <h3 class="text-xl font-semibold mb-2 dark:text-gray-100">React Hooks: A Deep Dive</h3>
+          <p class="text-gray-700 dark:text-gray-300">Understanding useState, useEffect, and custom hooks to write cleaner and more efficient React code.</p>
+          <p class="text-sm text-indigo-600 dark:text-indigo-400 mt-4 font-medium">Read more →</p>
+        </div>
+        <div class="blog-card bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500 cursor-pointer" data-blog="5">
+          <h3 class="text-xl font-semibold mb-2 dark:text-gray-100">MongoDB vs PostgreSQL</h3>
+          <p class="text-gray-700 dark:text-gray-300">A comprehensive comparison to help you choose the right database for your next project.</p>
+          <p class="text-sm text-indigo-600 dark:text-indigo-400 mt-4 font-medium">Read more →</p>
+        </div>
+        <div class="blog-card bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-500 cursor-pointer" data-blog="6">
+          <h3 class="text-xl font-semibold mb-2 dark:text-gray-100">TypeScript: Why It's Worth Learning</h3>
+          <p class="text-gray-700 dark:text-gray-300">Exploring the benefits of TypeScript and how it improves code quality and developer experience.</p>
+          <p class="text-sm text-indigo-600 dark:text-indigo-400 mt-4 font-medium">Read more →</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Blog Modal -->
+  <div id="blog-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div class="modal-backdrop fixed inset-0 bg-black/50" id="blog-modal-backdrop"></div>
+    <div class="modal-content relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <button id="close-blog-modal" class="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold z-10 bg-white dark:bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+        &times;
+      </button>
+      <div class="p-8 md:p-12">
+        <h2 id="blog-modal-title" class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-4"></h2>
+        <div id="blog-modal-content" class="text-gray-700 dark:text-gray-300 leading-relaxed space-y-4 text-lg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Modal -->
+  <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div class="modal-backdrop fixed inset-0 bg-black/50" id="project-modal-backdrop"></div>
+    <div class="modal-content relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+      <button id="close-project-modal" class="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold z-10 bg-white dark:bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+        &times;
+      </button>
+      <div class="p-8 md:p-12">
+        <h2 id="project-modal-title" class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-6"></h2>
+        
+        <!-- Project Image Gallery -->
+        <div id="project-gallery" class="mb-6 rounded-xl overflow-hidden">
+          <img id="project-main-image" src="" alt="" class="w-full h-64 md:h-96 object-cover">
+        </div>
+        
+        <!-- Project Description -->
+        <div id="project-description" class="text-gray-700 dark:text-gray-300 text-lg mb-6 leading-relaxed"></div>
+        
+        <!-- Tech Stack -->
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-3">Tech Stack</h3>
+          <div id="project-tech-stack" class="flex flex-wrap gap-2"></div>
+        </div>
+        
+        <!-- Features -->
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-3">Key Features</h3>
+          <ul id="project-features" class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2"></ul>
+        </div>
+        
+        <!-- Challenges -->
+        <div class="mb-6">
+          <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-3">Challenges & Solutions</h3>
+          <div id="project-challenges" class="text-gray-700 dark:text-gray-300 leading-relaxed"></div>
+        </div>
+        
+        <!-- Links -->
+        <div class="flex flex-wrap gap-4 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <a id="project-live-link" href="#" target="_blank" class="bg-indigo-600 dark:bg-indigo-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors flex items-center gap-2">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+          <a id="project-github-link" href="#" target="_blank" class="bg-gray-700 dark:bg-gray-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors flex items-center gap-2">
+            <i class="fab fa-github"></i> View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Contact -->
-  <section id="contact" class="py-24 text-center text-white bg-gradient-to-r from-purple-600 to-indigo-500">
-    <h2 class="text-4xl md:text-5xl font-bold animate-fade-in-up">Contact Me</h2>
-    <p class="mt-4 text-lg animate-fade-in-up">Email: syedfarazzz43@gmail.com</p>
-    <div class="flex justify-center gap-6 mt-6 flex-wrap animate-fade-in-up">
+  <section id="contact" class="py-24 text-center text-white bg-gradient-to-r from-purple-600 to-indigo-500 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300 scroll-animate">
+    <h2 class="text-4xl md:text-5xl font-bold">Contact Me</h2>
+    <p class="mt-4 text-lg">Email: syedfarazzz43@gmail.com</p>
+    <div class="flex justify-center gap-6 mt-6 flex-wrap">
       <a href="mailto:syedfarazzz43@gmail.com" class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition">Say Hello!</a>
       <a href="https://www.linkedin.com/in/syed-ali-faraz-7a92b5306" target="_blank" class="text-3xl hover:text-blue-300"><i class="fab fa-linkedin"></i></a>
       <a href="https://wa.me/923366993130" target="_blank" class="text-3xl hover:text-green-300"><i class="fab fa-whatsapp"></i></a>
@@ -175,15 +318,487 @@
   </section>
 
   <!-- Scroll to Top -->
-  <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="fixed bottom-6 right-6 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 z-50">
+  <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="fixed bottom-6 right-6 bg-indigo-600 dark:bg-indigo-500 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 z-50 transition-colors">
     <i class="fas fa-arrow-up"></i>
   </button>
 
   <script>
+    // Mobile menu toggle
     const btn = document.getElementById("menu-btn");
     const menu = document.getElementById("mobile-menu");
     btn.addEventListener("click", () => {
       menu.classList.toggle("hidden");
+    });
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+    const themeIcon = document.getElementById("theme-icon");
+    const themeIconMobile = document.getElementById("theme-icon-mobile");
+    const html = document.documentElement;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem("theme") || "light";
+    if (currentTheme === "dark") {
+      html.classList.add("dark");
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+      themeIconMobile.classList.remove("fa-moon");
+      themeIconMobile.classList.add("fa-sun");
+    }
+
+    function toggleTheme() {
+      html.classList.toggle("dark");
+      const isDark = html.classList.contains("dark");
+      
+      if (isDark) {
+        localStorage.setItem("theme", "dark");
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+        themeIconMobile.classList.remove("fa-moon");
+        themeIconMobile.classList.add("fa-sun");
+      } else {
+        localStorage.setItem("theme", "light");
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+        themeIconMobile.classList.remove("fa-sun");
+        themeIconMobile.classList.add("fa-moon");
+      }
+    }
+
+    themeToggle.addEventListener("click", toggleTheme);
+    themeToggleMobile.addEventListener("click", toggleTheme);
+
+    // Blog modal functionality
+    const body = document.body;
+    const blogCards = document.querySelectorAll(".blog-card");
+    const blogModal = document.getElementById("blog-modal");
+    const blogModalBackdrop = document.getElementById("blog-modal-backdrop");
+    const closeBlogModal = document.getElementById("close-blog-modal");
+    const blogModalTitle = document.getElementById("blog-modal-title");
+    const blogModalContent = document.getElementById("blog-modal-content");
+
+    const blogData = {
+      1: {
+        title: "Why I Chose Full Stack Development",
+        content: `
+          <p class="text-xl font-semibold mb-4">The Journey Begins</p>
+          <p>When I first started my journey in software development, I was fascinated by how different technologies work together to create amazing applications. I found myself equally interested in both frontend and backend development, which naturally led me to become a full stack developer.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">The Power of Versatility</p>
+          <p>Being a full stack developer means I can work on every layer of an application. From designing beautiful user interfaces with React and Tailwind CSS to building robust APIs with Node.js and Express, I get to see the entire picture. This holistic understanding allows me to make better architectural decisions and create more cohesive solutions.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Continuous Learning</p>
+          <p>One of the most exciting aspects of full stack development is the constant learning curve. Whether it's mastering new frameworks, understanding database optimization, or implementing authentication systems, there's always something new to explore. This keeps me motivated and ensures I'm always growing as a developer.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Building End-to-End Solutions</p>
+          <p>There's something incredibly satisfying about building a complete application from scratch. I can take an idea, design the database schema, create the API endpoints, build the frontend, and deploy it—all while understanding how each piece fits together. This end-to-end capability makes me a valuable asset to any team.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">The Future</p>
+          <p>As technology continues to evolve, I'm excited to explore new frameworks, tools, and methodologies. Full stack development isn't just about knowing multiple technologies—it's about understanding how to connect them seamlessly to create exceptional user experiences.</p>
+        `
+      },
+      2: {
+        title: "Top 5 JavaScript Tips",
+        content: `
+          <p class="text-xl font-semibold mb-4">1. Destructuring for Cleaner Code</p>
+          <p>Destructuring is one of the most powerful features in modern JavaScript. Instead of accessing object properties or array elements individually, you can extract them in a single line:</p>
+          <pre class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg my-4 overflow-x-auto"><code>const { name, email } = user;
+const [first, second] = array;</code></pre>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">2. Use Optional Chaining</p>
+          <p>Optional chaining (?.) allows you to safely access nested object properties without worrying about null or undefined errors:</p>
+          <pre class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg my-4 overflow-x-auto"><code>const city = user?.address?.city;</code></pre>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">3. Array Methods: map, filter, reduce</p>
+          <p>Master these three array methods and you'll write more functional and readable code. They're essential for data manipulation:</p>
+          <pre class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg my-4 overflow-x-auto"><code>const doubled = numbers.map(n => n * 2);
+const evens = numbers.filter(n => n % 2 === 0);
+const sum = numbers.reduce((acc, n) => acc + n, 0);</code></pre>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">4. Template Literals for String Interpolation</p>
+          <p>Template literals make string concatenation much cleaner and more readable:</p>
+          <pre class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg my-4 overflow-x-auto"><code>const message = \`Hello, \${name}! Welcome to \${platform}.\`;</code></pre>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">5. Async/Await Over Promises</p>
+          <p>While promises are great, async/await makes asynchronous code look synchronous and easier to read:</p>
+          <pre class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg my-4 overflow-x-auto"><code>async function fetchData() {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}</code></pre>
+        `
+      },
+      3: {
+        title: "Building Scalable APIs with Node.js",
+        content: `
+          <p class="text-xl font-semibold mb-4">Architecture Matters</p>
+          <p>When building APIs, architecture is crucial. I follow a modular approach where routes, controllers, services, and models are separated. This makes the codebase maintainable and allows for easy scaling as your application grows.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Error Handling</p>
+          <p>Proper error handling is essential for production APIs. I implement centralized error handling middleware that catches errors, logs them appropriately, and returns consistent error responses to clients. This ensures a better developer experience and easier debugging.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Validation and Security</p>
+          <p>Input validation using libraries like Joi or express-validator prevents invalid data from reaching your database. Additionally, implementing authentication with JWT, rate limiting, and CORS policies are fundamental for securing your API endpoints.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Database Optimization</p>
+          <p>Whether using MongoDB or PostgreSQL, proper indexing, query optimization, and connection pooling are key to performance. I always analyze slow queries and optimize them to ensure the API responds quickly even under heavy load.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Testing and Documentation</p>
+          <p>Writing comprehensive tests and maintaining API documentation (using tools like Swagger) are practices I never skip. They save time in the long run and make collaboration much easier.</p>
+        `
+      },
+      4: {
+        title: "React Hooks: A Deep Dive",
+        content: `
+          <p class="text-xl font-semibold mb-4">Understanding useState</p>
+          <p>The useState hook is the foundation of state management in functional components. It returns a stateful value and a function to update it. What's powerful is that React will re-render your component whenever the state changes, keeping your UI in sync with your data.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Mastering useEffect</p>
+          <p>useEffect handles side effects in React components. It's perfect for API calls, subscriptions, or DOM manipulations. The dependency array is crucial—it controls when the effect runs. Understanding this prevents unnecessary re-renders and bugs.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Custom Hooks for Reusability</p>
+          <p>Custom hooks allow you to extract component logic into reusable functions. I've created hooks like useAuth, useFetch, and useLocalStorage that I use across multiple projects. This promotes code reuse and keeps components clean.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">useContext for Global State</p>
+          <p>For sharing state across multiple components without prop drilling, useContext is invaluable. Combined with useReducer, it can replace Redux for simpler applications, reducing complexity while maintaining functionality.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Performance Optimization</p>
+          <p>Hooks like useMemo and useCallback help optimize performance by memoizing expensive calculations and functions. Understanding when to use them (and when not to) is key to building performant React applications.</p>
+        `
+      },
+      5: {
+        title: "MongoDB vs PostgreSQL",
+        content: `
+          <p class="text-xl font-semibold mb-4">Understanding the Differences</p>
+          <p>MongoDB is a NoSQL document database, while PostgreSQL is a relational SQL database. The choice between them depends on your data structure, query patterns, and scalability requirements.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">When to Choose MongoDB</p>
+          <p>MongoDB excels with unstructured or semi-structured data, rapid prototyping, and horizontal scaling. Its flexible schema allows you to evolve your data model without migrations. I use MongoDB for projects with varying document structures or when I need to scale quickly.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">When to Choose PostgreSQL</p>
+          <p>PostgreSQL is ideal for applications requiring complex queries, transactions, and data integrity. Its ACID compliance ensures data consistency, making it perfect for financial applications, e-commerce, or any system where data relationships are critical.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Hybrid Approach</p>
+          <p>In many projects, I use both databases. PostgreSQL for structured, relational data (users, orders, transactions) and MongoDB for flexible, document-based data (logs, analytics, user-generated content). This polyglot persistence approach leverages the strengths of each database.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">My Recommendation</p>
+          <p>Start with PostgreSQL if you're building a traditional web application with clear relationships. Choose MongoDB if you're working with rapidly changing schemas or need to handle large volumes of unstructured data. Both are excellent choices—the key is matching the database to your specific needs.</p>
+        `
+      },
+      6: {
+        title: "TypeScript: Why It's Worth Learning",
+        content: `
+          <p class="text-xl font-semibold mb-4">Type Safety Benefits</p>
+          <p>TypeScript adds static typing to JavaScript, catching errors at compile time rather than runtime. This means fewer bugs in production and more confidence when refactoring code. The type system acts as documentation, making code self-explanatory.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Better Developer Experience</p>
+          <p>Modern IDEs provide excellent autocomplete and IntelliSense support with TypeScript. This speeds up development significantly—you spend less time looking up API documentation and more time writing code. The compiler also provides helpful error messages that guide you to fix issues.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Improved Code Maintainability</p>
+          <p>In large codebases, TypeScript's type system helps teams collaborate more effectively. When you change an interface, TypeScript shows you everywhere that needs to be updated. This prevents breaking changes and makes refactoring much safer.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Gradual Adoption</p>
+          <p>One of TypeScript's best features is that you can adopt it gradually. You can start with JavaScript and add types incrementally. The .ts and .js files can coexist in the same project, making migration smooth and non-disruptive.</p>
+          
+          <p class="text-xl font-semibold mb-4 mt-6">Industry Standard</p>
+          <p>TypeScript has become the industry standard for large-scale JavaScript applications. Major frameworks like React, Vue, and Angular have excellent TypeScript support. Learning it opens up more opportunities and makes you a more valuable developer.</p>
+        `
+      }
+    };
+
+    function openBlogModal(blogId) {
+      const blog = blogData[blogId];
+      if (!blog) return;
+      
+      blogModalTitle.textContent = blog.title;
+      blogModalContent.innerHTML = blog.content;
+      blogModal.classList.remove("hidden");
+      blogModal.classList.add("flex");
+      body.style.overflow = "hidden";
+      
+      // Add blur to all sections except modal
+      document.querySelectorAll("section, nav").forEach(el => {
+        if (!el.classList.contains("blog-blur")) {
+          el.classList.add("blog-blur");
+        }
+      });
+    }
+
+    function closeBlogModalHandler() {
+      blogModal.classList.add("hidden");
+      blogModal.classList.remove("flex");
+      body.style.overflow = "";
+      
+      // Remove blur from all sections
+      document.querySelectorAll("section, nav").forEach(el => {
+        el.classList.remove("blog-blur");
+      });
+    }
+
+    blogCards.forEach(card => {
+      card.addEventListener("click", () => {
+        const blogId = card.getAttribute("data-blog");
+        openBlogModal(blogId);
+      });
+    });
+
+    closeBlogModal.addEventListener("click", closeBlogModalHandler);
+    blogModalBackdrop.addEventListener("click", closeBlogModalHandler);
+
+    // Project modal functionality
+    const projectCards = document.querySelectorAll(".project-card");
+    const projectModal = document.getElementById("project-modal");
+    const projectModalBackdrop = document.getElementById("project-modal-backdrop");
+    const closeProjectModal = document.getElementById("close-project-modal");
+    const projectModalTitle = document.getElementById("project-modal-title");
+    const projectMainImage = document.getElementById("project-main-image");
+    const projectDescription = document.getElementById("project-description");
+    const projectTechStack = document.getElementById("project-tech-stack");
+    const projectFeatures = document.getElementById("project-features");
+    const projectChallenges = document.getElementById("project-challenges");
+    const projectLiveLink = document.getElementById("project-live-link");
+    const projectGithubLink = document.getElementById("project-github-link");
+
+    const projectData = {
+      1: {
+        title: "Mega Blog",
+        image: "mega-blog.jpg",
+        description: "A dynamic blog application where users can create, read, update, and delete blog posts. The platform features real-time interactions, user authentication, and a modern, responsive design that works seamlessly across all devices.",
+        techStack: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "Tailwind CSS"],
+        features: [
+          "User authentication and authorization",
+          "CRUD operations for blog posts",
+          "Real-time comments and interactions",
+          "Responsive design for all devices",
+          "Rich text editor for blog creation",
+          "Search and filter functionality"
+        ],
+        challenges: "One of the main challenges was implementing real-time updates without using WebSockets. I solved this by using polling with optimized API calls and implementing efficient state management with React Context. Another challenge was handling image uploads securely, which I addressed by implementing proper file validation and using cloud storage solutions.",
+        liveLink: "#",
+        githubLink: "https://github.com/Faraz-cell21"
+      },
+      2: {
+        title: "Currency Exchanger",
+        image: "currency.png",
+        description: "A currency conversion application with real-time exchange rates. The app fetches live data from a currency API and provides instant conversions between multiple currencies with a clean, intuitive interface.",
+        techStack: ["React", "Node.js", "Express.js", "REST API", "Axios", "CSS"],
+        features: [
+          "Real-time currency exchange rates",
+          "Support for multiple currencies",
+          "Historical rate tracking",
+          "Fast and accurate conversions",
+          "Clean and intuitive UI",
+          "Offline caching for better performance"
+        ],
+        challenges: "The primary challenge was handling API rate limits and ensuring the app remains responsive even with slow network connections. I implemented request caching, error handling, and fallback mechanisms to ensure a smooth user experience regardless of network conditions.",
+        liveLink: "#",
+        githubLink: "https://github.com/Faraz-cell21"
+      },
+      3: {
+        title: "University CMS",
+        image: "cms-gu.jpg",
+        description: "A comprehensive Content Management System designed for Gomal University to manage academic operations. The system handles student records, course management, faculty information, and administrative tasks.",
+        techStack: ["React", "Node.js", "Express.js", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+        features: [
+          "Student and faculty management",
+          "Course scheduling and enrollment",
+          "Grade management system",
+          "Document management",
+          "Role-based access control",
+          "Reporting and analytics dashboard"
+        ],
+        challenges: "Building a system that handles complex relationships between students, courses, and faculty required careful database design. I used PostgreSQL with proper normalization and indexing to ensure fast queries. Implementing role-based access control was challenging, but I solved it using JWT tokens with role claims and middleware for route protection.",
+        liveLink: "#",
+        githubLink: "https://github.com/Faraz-cell21"
+      },
+      4: {
+        title: "Ryvals",
+        image: "ryvals.png",
+        description: "A comprehensive web application for managing tournaments, leagues, and lobbies in FPS games. The platform allows players to organize competitions, track statistics, and manage team rosters.",
+        techStack: ["React", "Node.js", "Express.js", "MongoDB", "Socket.io", "Redux"],
+        features: [
+          "Tournament creation and management",
+          "Real-time match updates",
+          "Player statistics tracking",
+          "Team roster management",
+          "Bracket generation",
+          "Live scoreboards"
+        ],
+        challenges: "Implementing real-time updates for matches and tournaments required WebSocket integration. I used Socket.io to handle real-time communication between the server and clients. Managing complex tournament brackets and ensuring data consistency was another challenge, which I solved by implementing proper state management with Redux and careful database transaction handling.",
+        liveLink: "#",
+        githubLink: "https://github.com/Faraz-cell21"
+      },
+      5: {
+        title: "Sabio Trade",
+        image: "sabio.png",
+        description: "A web application for managing trading portfolios and helping users grow their investments. The platform provides portfolio tracking, market analysis, and investment recommendations.",
+        techStack: ["React", "Node.js", "Express.js", "PostgreSQL", "TypeScript", "Chart.js"],
+        features: [
+          "Portfolio tracking and management",
+          "Real-time market data integration",
+          "Investment analytics and insights",
+          "Risk assessment tools",
+          "Performance charts and graphs",
+          "Investment recommendations"
+        ],
+        challenges: "Integrating real-time market data from multiple sources while maintaining performance was challenging. I implemented efficient data caching strategies and used WebSocket connections for live updates. Creating accurate analytics and charts required careful data processing and visualization, which I achieved using Chart.js with optimized data structures.",
+        liveLink: "#",
+        githubLink: "https://github.com/Faraz-cell21"
+      },
+      6: {
+        title: "Wellbility",
+        image: "wellbility.png",
+        description: "A web application for managing pharmaceutical operations. The system handles inventory management, prescription tracking, supplier management, and regulatory compliance.",
+        techStack: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "Bootstrap"],
+        features: [
+          "Inventory management system",
+          "Prescription tracking and management",
+          "Supplier and vendor management",
+          "Regulatory compliance tracking",
+          "Automated alerts and notifications",
+          "Comprehensive reporting system"
+        ],
+        challenges: "Ensuring data accuracy and regulatory compliance was critical. I implemented strict validation rules and audit trails to track all changes. Handling complex inventory calculations and preventing stockouts required careful algorithm design. I also had to ensure the system was secure and HIPAA-compliant, which involved implementing proper encryption and access controls.",
+        liveLink: "#",
+        githubLink: "https://github.com/Faraz-cell21"
+      }
+    };
+
+    function openProjectModal(projectId) {
+      const project = projectData[projectId];
+      if (!project) return;
+      
+      projectModalTitle.textContent = project.title;
+      projectMainImage.src = project.image;
+      projectMainImage.alt = project.title;
+      projectDescription.textContent = project.description;
+      
+      // Tech Stack
+      projectTechStack.innerHTML = "";
+      project.techStack.forEach(tech => {
+        const badge = document.createElement("span");
+        badge.className = "bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 px-3 py-1 rounded-full text-sm font-semibold";
+        badge.textContent = tech;
+        projectTechStack.appendChild(badge);
+      });
+      
+      // Features
+      projectFeatures.innerHTML = "";
+      project.features.forEach(feature => {
+        const li = document.createElement("li");
+        li.textContent = feature;
+        projectFeatures.appendChild(li);
+      });
+      
+      // Challenges
+      projectChallenges.textContent = project.challenges;
+      
+      // Links
+      projectLiveLink.href = project.liveLink;
+      projectGithubLink.href = project.githubLink;
+      
+      // Hide live link if not available
+      if (project.liveLink === "#") {
+        projectLiveLink.style.display = "none";
+      } else {
+        projectLiveLink.style.display = "flex";
+      }
+      
+      projectModal.classList.remove("hidden");
+      projectModal.classList.add("flex");
+      body.style.overflow = "hidden";
+      
+      // Add blur to all sections except modal
+      document.querySelectorAll("section, nav").forEach(el => {
+        if (!el.classList.contains("blog-blur")) {
+          el.classList.add("blog-blur");
+        }
+      });
+    }
+
+    function closeProjectModalHandler() {
+      projectModal.classList.add("hidden");
+      projectModal.classList.remove("flex");
+      body.style.overflow = "";
+      
+      // Remove blur from all sections
+      document.querySelectorAll("section, nav").forEach(el => {
+        el.classList.remove("blog-blur");
+      });
+    }
+
+    projectCards.forEach(card => {
+      card.addEventListener("click", () => {
+        const projectId = card.getAttribute("data-project");
+        openProjectModal(projectId);
+      });
+    });
+
+    closeProjectModal.addEventListener("click", closeProjectModalHandler);
+    projectModalBackdrop.addEventListener("click", closeProjectModalHandler);
+
+    // Close modals on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        if (!blogModal.classList.contains("hidden")) {
+          closeBlogModalHandler();
+        }
+        if (!projectModal.classList.contains("hidden")) {
+          closeProjectModalHandler();
+        }
+      }
+    });
+
+    // Active navigation highlighting
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("section[id]");
+
+    function updateActiveNav() {
+      let current = "";
+      const scrollY = window.pageYOffset;
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", updateActiveNav);
+    updateActiveNav(); // Initial call
+
+    // Scroll animations using Intersection Observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animated");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with scroll-animate class
+    document.querySelectorAll(".scroll-animate").forEach(el => {
+      observer.observe(el);
     });
   </script>
 
