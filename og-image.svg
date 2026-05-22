@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="ogTitle">
+  <title id="ogTitle">Syed Ali Faraz  Full Stack Developer</title>
+  <rect width="1200" height="630" fill="#050505"/>
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#facc15"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="8" fill="url(#accent)"/>
+  <text x="80" y="280" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="72" font-weight="800" fill="#f5f5f5">Syed Ali Faraz</text>
+  <text x="80" y="360" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="40" font-weight="600" fill="#f97316">Full Stack Developer</text>
+  <text x="80" y="420" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" fill="#737373">2+ years experience · MERN · DRF</text>
+  <text x="80" y="560" font-family="ui-monospace, monospace" font-size="22" fill="#525252">Portfolio</text>
+</svg>
